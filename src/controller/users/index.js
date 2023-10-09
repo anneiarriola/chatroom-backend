@@ -1,14 +1,29 @@
-exports.helloFromUser = async (req, res) => {
+const User = require('../../models/user')
+
+exports.createUser = async (req, res) => {
   try {
-    res.status(200).json({ message: "helloFromUser" });
+    const body = req.body;
+    if (body.user_name) {
+      const name = body.user_name;
+      const user = new User()
+      user.user_name = name
+      await user.save()
+      res.status(201).json({ message: "User created" });
+    } else {
+      throw Error('User not created, name is required')
+    }
+    
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(404).json({ error: error.message });
   }
 };
-exports.byeFromUser = async (req, res) => {
+
+exports.getUser = async (req, res) => {
   try {
-    res.status(200).json({ message: "byeFromUser" });
+    const users = await User.find();
+    res.status(200).json(users);
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
   }
-};
+}

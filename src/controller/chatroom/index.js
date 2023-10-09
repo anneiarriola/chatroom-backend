@@ -10,7 +10,7 @@ exports.createChatRoom = async (req, res) => {
       await chatroom.save()
       res.status(201).json({ message: "Chat room created" });
     } else {
-      throw Error('Chat room not created, name is requi')
+      throw Error('Chat room not created, name is required')
     }
     
   } catch (error) {

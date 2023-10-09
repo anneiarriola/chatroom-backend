@@ -3,7 +3,7 @@ const route = Router()
 
 const userController = require('../../controller/users/index')
 
-route.get('/hello', userController.helloFromUser)
-route.get('/bye', userController.byeFromUser)
+route.post('/create', userController.createUser)
+route.get('/fetch', userController.getUser)
 
 module.exports = route

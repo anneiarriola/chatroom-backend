@@ -5,7 +5,9 @@ const mongoose = require('mongoose');
 const app = require('./src/app')
 mongoose.connect(process.env.MONGO_DB_URI, {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
+  connectTimeoutMS: 30000, // Set a longer timeout for connection attempts (in milliseconds)
+  socketTimeoutMS: 30000, 
 });
 
 const db = mongoose.connection;
