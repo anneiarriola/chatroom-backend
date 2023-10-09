@@ -17,3 +17,13 @@ exports.createChatRoom = async (req, res) => {
     res.status(404).json({ error: error.message });
   }
 };
+
+exports.getChatRoom = async (req, res) => {
+  try {
+    const chatroom = await ChatRoom.find();
+    res.status(200).json(chatroom);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+}
