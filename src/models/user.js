@@ -5,9 +5,6 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  chat_room_id: {
-    type: mongoose.SchemaTypes.ObjectId
-  }
 });
 
 const User = mongoose.model('User', userSchema);

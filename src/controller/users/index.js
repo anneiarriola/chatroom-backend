@@ -12,7 +12,7 @@ exports.getUser = async (req, res) => {
 
 exports.createUser = async (req, res) => {
   try {
-    const { user_name, chat_room_id } = req.body;
+    const { user_name } = req.body;
     // Check if user with the same username or email already exists
     const existingUser = await User.findOne({ $or: [{ user_name }] });
     if (existingUser) {
