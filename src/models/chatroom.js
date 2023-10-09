@@ -5,7 +5,6 @@ const chatRoomSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-
 });
 
 const ChatRoom = mongoose.model('ChatRoom', chatRoomSchema);
