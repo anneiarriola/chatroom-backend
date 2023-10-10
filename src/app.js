@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 app.use(cors()); 
 
 const routeV1 = require('./routes/index');
-app.use('/', (req,res) => {
+app.get('/', (req,res) => {
   res.send('Hello from Api')
 });
 app.use('/v1', routeV1);
