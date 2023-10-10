@@ -1,18 +1,26 @@
-exports.helloFromMessage = async (req, res) => {
+const Message = require('../../models/message');
 
-    try {
-     
-      res.status(200).json({'message': 'helloFromMessage'});
-    } catch (error) {
-      res.status(400).json({ error: error.message });
-    }
+exports.createMessage = async(req, res) => {
+  const { user_sender_id, chat_room_id ,content } = req.body;
+  try {
+    const newMessage = new Message({ user_sender_id,chat_room_id, content });
+    await newMessage.save();
+    res.json(newMessage);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'An error occurred' });
   }
-exports.byeFromMessage = async (req, res) => {
 
-    try {
-     
-      res.status(200).json({'message': 'byeFromMessage'});
-    } catch (error) {
-      res.status(400).json({ error: error.message });
-    }
+}
+
+exports.getAllMessages = async(req,res) => {
+  try {
+    const messages = await Message.find().sort({ timestamp: 1 });
+    res.json(messages);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'An error occurred' });
   }
+}
+
+

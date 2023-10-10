@@ -4,9 +4,11 @@ const cors = require('cors'); // Import the cors package
 const app = express();
 const bodyParser = require('body-parser');
 
+
 // Configurar bodyParser para analizar solicitudes POST
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
 
 app.use(cors()); // Enable CORS for all routes
 

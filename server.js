@@ -17,32 +17,38 @@ db.once('open', () => {
   console.log('Conectado a la base de datos MongoDB');
 });
 
-const server = http.createServer(app);
+// const server = http.createServer(app);
+const server = app.listen(3000, () => {
+  console.log('Server is running on port 3000');
+});
+
 const io = socketIo(server, {
   cors: {
-    origin: "http://localhost:8080", // Replace with your Vue.js application's origin
-    methods: ["GET", "POST"] // Allowed HTTP methods
+    origin: '*', // Replace with your Vue.js application's origin
+    methods: ["GET", "POST"], // Allowed HTTP methods
+    credentials: true,
+    optionsSuccessStatus: 204,
   }
 });
 
 io.on('connection', (socket) => {
-  console.log('A user connected');
+  console.log('a user connected');
 
-  // Handle events from the client
-  socket.on('chat message', (message) => {
-    console.log('mes', message)
-    // Broadcast the message to all connected clients
-    io.emit('chat message', message);
+  socket.on('chat message', (msg) => {
+    const message = new Message(msg);
+    message.save((err) => {
+      if (err) return console.error(err);
+      io.emit('chat message', msg);
+    });
   });
 
   socket.on('disconnect', () => {
-    console.log('User disconnected');
+    console.log('user disconnected');
   });
 });
 
 
 
-server.listen(3000, () => {
-  console.log('Server is running on port 3000');
-});
+
+
 
