@@ -6,6 +6,9 @@ const user = require('./users/index')
 const chatroom = require('./chatroom/index')
 const user_chatroom = require('./user_chatroom/index')
 
+router.use('/', (req,res)=> {
+  res.send('Hi From Api')
+})
 router.use('/message', message)
 router.use('/users', user)
 router.use('/chatroom', chatroom)
