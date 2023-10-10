@@ -13,7 +13,7 @@ exports.validationChatRoom = async (req, res) => {
       if (!user._id) {
         return res.status(404).json({ error: 'User not found' });
       }
-    //   // Check if the chat room exists
+      // Check if the chat room exists
       const chatRoom = await ChatRoom.findById(chat_room_id);
       if (!chatRoom._id) {
         return res.status(404).json({ error: 'Chat room not found' });
@@ -28,7 +28,7 @@ exports.validationChatRoom = async (req, res) => {
       if (userChatRoom) {
         return res.status(200).json({ message: 'User is already in the chat room' });
       } else {
-        // If the user is not in the chat room, prompt them to join
+        // If the user is not in the chat room, join
         const newUserChatRoom = new UserChatRoom({
           user_id: user_id,
           chat_room_id: chat_room_id,

@@ -1,6 +1,5 @@
 const socketIo = require('socket.io');
-const cors = require('cors'); // Import the cors package
-
+const cors = require('cors');
 let socketChatRoom;
 let io;
 
@@ -8,8 +7,8 @@ module.exports = {
   init: httpServer => {
     io = socketIo(httpServer, {
         cors: {
-          origin: '*', // Replace with your front-end domain
-          methods: ['GET', 'POST'] // Allow the necessary HTTP methods
+          origin: '*',
+          methods: ['GET', 'POST']
         }
       });
     return io;
