@@ -32,7 +32,6 @@ module.exports = {
   },
 
   onMessage: (id,msg) => {
-    console.log('as',msg)
     socketChatRoom.emit(id, msg)
   }
 }

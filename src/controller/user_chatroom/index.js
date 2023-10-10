@@ -7,9 +7,7 @@ exports.validationChatRoom = async (req, res) => {
 
     try {
       // Check if the user exists
-      console.log(user_id)
       const user = await User.findById(user_id);
-      console.log(user)
       if (!user._id) {
         return res.status(404).json({ error: 'User not found' });
       }
