@@ -54,6 +54,16 @@ Start the server
 ```bash
   node server.js
 ```
+## Usage
+
+To visualize this project we need
+
+```bash
+  git clone https://github.com/anneiarriola/chatroom-frontend.git
+  npm install 
+  npm run serve
+```
+
 ## Contribution
 
 We hope you enjoy using this chatroom built with Vue.js, Node.js, Socket.io, MongoDB, and Vuetify!
