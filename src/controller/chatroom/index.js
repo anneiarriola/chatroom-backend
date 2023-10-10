@@ -1,5 +1,5 @@
 const ChatRoom = require("../../models/chatroom");
-
+const SocketChatRoom = require('../../socket')
 exports.createChatRoom = async (req, res) => {
   try {
     const body = req.body;
@@ -26,4 +26,33 @@ exports.getChatRoom = async (req, res) => {
     console.error(error);
     res.status(500).json({ error: 'Internal server error' });
   }
+}
+
+exports.connectChatRoom = async (req,res) => {
+ const io = require('../../socket').getIO()
+  io.of('/chatroom/:id', (socket) => {
+    console.log('a user connected');
+
+    socket.on('chat message', (msg) => {
+      const message = new Message(msg);
+      message.save((err) => {
+        if (err) return console.error(err);
+        io.emit('chat message', msg);
+      });
+    });
+
+    socket.on('disconnect', () => {
+      console.log('user disconnected');
+    });
+  });
+}
+exports.sendMessageToChatRoom = async (req,res) => {
+ const io = require('../../socket').getIO()
+  io.of('/chatroom/:id', (socket) => {
+    console.log('a user connected');
+      message.save((err) => {
+        if (err) return console.error(err);
+        io.emit('chat message', msg);
+      });
+  });
 }

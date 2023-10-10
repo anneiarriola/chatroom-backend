@@ -1,7 +1,6 @@
 const { Router } = require('express');
 
 const router = Router();
-
 const message = require('./messages/index')
 const user = require('./users/index')
 const chatroom = require('./chatroom/index')

@@ -3,6 +3,7 @@ const http = require('http');
 const socketIo = require('socket.io');
 const mongoose = require('mongoose');
 const app = require('./src/app')
+const SocketChatRoom = require('./src/socket')
 mongoose.connect(process.env.MONGO_DB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -22,30 +23,30 @@ const server = app.listen(3000, () => {
   console.log('Server is running on port 3000');
 });
 
-const io = socketIo(server, {
-  cors: {
-    origin: '*', // Replace with your Vue.js application's origin
-    methods: ["GET", "POST"], // Allowed HTTP methods
-    credentials: true,
-    optionsSuccessStatus: 204,
-  }
-});
+require('./src/socket').init(server)
+require('./src/socket').connection()
+// const io = socketIo(server, {
+//   cors: {
+//     origin: "*", // Replace with your Vue.js application's origin
+//     methods: ["GET", "POST"] // Allowed HTTP methods
+//   }
+// });
 
-io.on('connection', (socket) => {
-  console.log('a user connected');
+// io.on('connection', (socket) => {
+//   console.log('a user connected');
 
-  socket.on('chat message', (msg) => {
-    const message = new Message(msg);
-    message.save((err) => {
-      if (err) return console.error(err);
-      io.emit('chat message', msg);
-    });
-  });
+//   socket.on('chat message', (msg) => {
+//     const message = new Message(msg);
+//     message.save((err) => {
+//       if (err) return console.error(err);
+//       io.emit('chat message', msg);
+//     });
+//   });
 
-  socket.on('disconnect', () => {
-    console.log('user disconnected');
-  });
-});
+//   socket.on('disconnect', () => {
+//     console.log('user disconnected');
+//   });
+// });
 
 
 

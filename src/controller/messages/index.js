@@ -1,10 +1,11 @@
 const Message = require('../../models/message');
 
 exports.createMessage = async(req, res) => {
-  const { user_sender_id, chat_room_id ,content } = req.body;
+  const { user_sender_id, chat_room_id ,content,user_name } = req.body;
   try {
-    const newMessage = new Message({ user_sender_id,chat_room_id, content });
-    await newMessage.save();
+    const newMessage = new Message({ user_sender_id,chat_room_id, content, user_name });
+    const message = await newMessage.save();
+    require('../../socket').onMessage(chat_room_id,message)
     res.json(newMessage);
   } catch (error) {
     console.error(error);
